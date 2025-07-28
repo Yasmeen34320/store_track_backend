@@ -34,10 +34,10 @@ app.use(express.json());
 app.use(cors());
 
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+const userRoute = require('./routes/userRoute');
 
 
-DBListener.on('error',(err)=>{console.log(err)});
 
 DBListener.once('open',()=>{
 
@@ -45,6 +45,8 @@ DBListener.once('open',()=>{
     app.get('/', (req, res) => {
         res.status(200).json({ message: "🎉 Backend is up and running!" });
     });
+
+    app.use('/api/users',userRoute);
 
 
      app.listen(PORT, () => {
