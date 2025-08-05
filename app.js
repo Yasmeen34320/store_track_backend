@@ -36,9 +36,11 @@ app.use(cors());
 
 
 const userRoute = require('./routes/userRoute');
-
-
-
+const itemRoute = require('./routes/itemRoute')
+const shopRoute = require('./routes/shopRoute');
+const supplierRoute = require('./routes/supplierRoute');
+const salesInvoiceRoute = require('./routes/salesInvoiceRoutes');
+const salesDebtRoute = require('./routes/salesDebtRoutes');
 DBListener.once('open',()=>{
 
     console.log("✅ Connected to MongoDB"); 
@@ -47,7 +49,12 @@ DBListener.once('open',()=>{
     });
 
     app.use('/api/users',userRoute);
-
+    app.use('/api/items',itemRoute);
+    app.use('/api/shop',shopRoute);
+    app.use('/api/suppliers' , supplierRoute);
+    app.use('/api/salesDebt' , salesDebtRoute);
+    app.use('/api/salesInvoice' , salesInvoiceRoute);
+    
 
      app.listen(PORT, () => {
         console.log(`Server is running on http://localhost:${PORT}`);

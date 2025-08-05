@@ -21,8 +21,9 @@ const Login= async(req,res)=>{
     const {username,password}=req.body;
 
     try{
-        const user = User.findOne({username});
-        
+      console.log("Login request received:", req.body);
+
+        const user =await User.findOne({username});
         if(!user)
             res.status(401).json({message:"Invalid credentials"});
 
@@ -35,6 +36,7 @@ const Login= async(req,res)=>{
         res.status(200).json({token , user,message:"user LogIn successfully"});
 
     }catch(err){
+      console.log(err)
         res.status(500).json({message:"Server error"});
 
     }
@@ -71,8 +73,9 @@ const getAllUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
   try {
+    console.log(req.params.id);
     const user = await User.findById(req.params.id).select("-password");
-
+    console.log(user)
     if (!user) return res.status(404).json({ message: "User not found" });
 
     res.status(200).json({user , message:"User Fetched Successfully"});
