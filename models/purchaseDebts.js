@@ -8,7 +8,8 @@ const purchaseDebtSchema = new mongoose.Schema({
       type: { type: String, enum: ["buy", "pay"] },
       amount: Number,
       date: { type: Date, default: Date.now },
-      note: String
+      note: String,
+      userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" } // ✅ added userId
     }
   ]
 }, {

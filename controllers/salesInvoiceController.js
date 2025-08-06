@@ -26,7 +26,10 @@ exports.createInvoice = async (req, res) => {
      for (const item of invoice.items) {
           await Item.findByIdAndUpdate(
             item.itemId,
-            { $set: { sellingPrice: item.sellingPrice } },
+            { $set: { sellingPrice: item.sellingPrice } ,
+               $inc: { quantityInStock: -item.quantity },
+
+          },
             { session }
           );
         }

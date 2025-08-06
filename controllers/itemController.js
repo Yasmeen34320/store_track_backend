@@ -28,6 +28,10 @@ const createItem = async (req, res) => {
     await newItem.save();
     res.status(201).json({ data: newItem, message: "Item created" });
   } catch (err) {
+    if (err.code === 11000 && err.keyPattern) {
+  const field = Object.keys(err.keyPattern)[0]; // e.g., 'barcode', 'email', etc.
+  return res.status(400).json({ message: `Duplicate ${field}` });
+}
     res.status(400).json({ message: err.message });
   }
 };
